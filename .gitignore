@@ -1,6 +1,5 @@
 data/
 *.db
-worker-node/node_modules/
 worker-python/__pycache__/
 worker-python/.venv/
 *.pyc

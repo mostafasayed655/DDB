@@ -6,7 +6,7 @@
 
 ## 2. Architecture Overview
 - Master (API Gateway)
-- Worker nodes (Go, Node.js, C#)
+- Worker nodes (Go, C#, Python)
 - Aggregator (MapReduce-style)
 - Network topology and ports
 
@@ -21,7 +21,7 @@
 - Stateless master for quick recovery
 
 ## 5. Polyglot Workers (Bonus)
-- Node.js worker: summary endpoint
+- Python worker: summary endpoint
 - C# worker: summary endpoint
 - Integration with Go master
 

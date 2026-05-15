@@ -1,13 +1,18 @@
 {
+    "_comment": "Update baseUrl values to your worker IPs.",
     "address": ":8004",
     "workers": [
         {
             "name": "worker-go",
-            "baseUrl": "http://localhost:8001"
+            "baseUrl": "http://10.227.135.128:8001"
         },
         {
             "name": "worker-cs",
-            "baseUrl": "http://localhost:8003"
+            "baseUrl": "http://10.227.135.128:8006"
+        },
+        {
+            "name": "worker-python",
+            "baseUrl": "http://REPLACE_ME:8003"
         }
     ],
     "requestTimeoutMs": 5000

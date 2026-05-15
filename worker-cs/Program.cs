@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using MySqlConnector;
 
+
+
 var configPath = GetConfigPath(args);
 var cfg = LoadConfig(configPath);
 
@@ -22,7 +24,7 @@ if (string.IsNullOrWhiteSpace(cfg.MySql.Database))
     throw new InvalidOperationException("mysql.database is required");
 }
 
-if (!IdentRegex.IsMatch(cfg.MySql.Database))
+if (!ProgramRegex.IdentRegex.IsMatch(cfg.MySql.Database))
 {
     throw new InvalidOperationException("mysql.database must be a simple identifier");
 }
@@ -74,7 +76,7 @@ app.MapPost("/table/create", async (HttpRequest request) =>
             return Results.Json(new { ok = false, message = "invalid column name" }, statusCode: 400);
         }
         var colType = col.Type?.Trim();
-        if (string.IsNullOrWhiteSpace(colType) || !TypeRegex.IsMatch(colType))
+        if (string.IsNullOrWhiteSpace(colType) || !ProgramRegex.TypeRegex.IsMatch(colType))
         {
             return Results.Json(new { ok = false, message = "invalid column type" }, statusCode: 400);
         }
@@ -485,11 +487,14 @@ static object? ConvertValue(JsonElement element)
 
 static bool IsValidIdent(string? value)
 {
-    return !string.IsNullOrWhiteSpace(value) && IdentRegex.IsMatch(value);
+    return !string.IsNullOrWhiteSpace(value) && ProgramRegex.IdentRegex.IsMatch(value);
 }
 
-static readonly Regex IdentRegex = new("^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled);
-static readonly Regex TypeRegex = new("^[A-Za-z0-9_(),\\s]+$", RegexOptions.Compiled);
+public static class ProgramRegex
+{
+    public static readonly Regex IdentRegex = new("^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled);
+    public static readonly Regex TypeRegex = new("^[A-Za-z0-9_(),\\s]+$", RegexOptions.Compiled);
+}
 
 sealed class WorkerConfig
 {

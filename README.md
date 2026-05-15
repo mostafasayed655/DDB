@@ -2,7 +2,7 @@
 
 ## Architecture
 - Master (Go): API gateway. Routes client requests, chooses a primary worker for inserts, and replicates writes.
-- Workers (Go, Node.js, C#): store MySQL data locally and serve CRUD requests.
+- Workers (Go, C#, Python): store MySQL data locally and serve CRUD requests.
 - Aggregator (Go): map/reduce node that fans out read queries and merges results.
 
 ## Features
@@ -15,13 +15,13 @@
 ## Ports (default)
 - Master: 8000
 - Worker (Go): 8001
-- Worker (Node.js): 8002
-- Worker (C#): 8003
+- Worker (Python): 8003
+- Worker (C#): 8006
 - Aggregator: 8004
 
 ## Prerequisites
 - Go 1.22+
-- Node.js 18+
+- Python 3.10+
 - .NET 8 SDK
 - MySQL Server 8+
 
@@ -31,21 +31,23 @@
 go mod tidy
 ```
 
-### Node.js worker
-```
-cd worker-node
-npm install
-```
-
 ### MySQL config
 Edit each worker config file and set credentials:
 - [config/worker-go.json](config/worker-go.json)
-- [config/worker-node.json](config/worker-node.json)
 - [config/worker-cs.json](config/worker-cs.json)
+- [config/worker-python.json](config/worker-python.json)
 
 ### C# worker
 ```
 dotnet restore .\worker-cs\Worker.csproj
+```
+
+### Python worker
+```
+cd worker-python
+python -m venv .venv
+\.venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
 ## Run (local)
@@ -55,8 +57,8 @@ Start each node in its own terminal:
 go run .\cmd\worker-go -config .\config\worker-go.json
 ```
 ```
-cd worker-node
-npm start
+cd worker-python
+python app.py
 ```
 ```
 dotnet run --project .\worker-cs\Worker.csproj -- --config .\config\worker-cs.json

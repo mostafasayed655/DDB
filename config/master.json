@@ -1,4 +1,5 @@
 {
+    "_comment": "Update baseUrl values to your worker IPs.",
     "address": ":8000",
     "workers": [
         {
@@ -7,12 +8,17 @@
         },
         {
             "name": "worker-cs",
-            "baseUrl": "http://10.227.135.185:8003"
+            "baseUrl": "http://10.227.135.128:8006"
+        },
+        {
+            "name": "worker-python",
+            "baseUrl": "http://REPLACE_ME:8003"
         }
     ],
     "aggregatorUrl": "http://10.227.135.32:8004",
     "requestTimeoutMs": 5000,
     "specialWorkers": [
-        "worker-cs"
+        "worker-cs",
+        "worker-python"
     ]
 }
