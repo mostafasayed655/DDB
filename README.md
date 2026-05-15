@@ -2,7 +2,7 @@
 
 ## Architecture
 - Master (Go): API gateway. Routes client requests, chooses a primary worker for inserts, and replicates writes.
-- Workers (Go, C#, Python): store MySQL data locally and serve CRUD requests.
+- Workers (Go, C#, Java): store MySQL data locally and serve CRUD requests.
 - Aggregator (Go): map/reduce node that fans out read queries and merges results.
 
 ## Features
@@ -15,14 +15,14 @@
 ## Ports (default)
 - Master: 8000
 - Worker (Go): 8001
-- Worker (Python): 8003
+- Worker (Java): 8003
 - Worker (C#): 8006
 - Aggregator: 8004
 
 ## Prerequisites
 - Go 1.22+
-- Python 3.10+
 - .NET 8 SDK
+- Java 17+ (JDK)
 - MySQL Server 8+
 
 ## Setup
@@ -35,19 +35,17 @@ go mod tidy
 Edit each worker config file and set credentials:
 - [config/worker-go.json](config/worker-go.json)
 - [config/worker-cs.json](config/worker-cs.json)
-- [config/worker-python.json](config/worker-python.json)
+- [config/worker-java.json](config/worker-java.json)
 
 ### C# worker
 ```
 dotnet restore .\worker-cs\Worker.csproj
 ```
 
-### Python worker
+### Java worker
 ```
-cd worker-python
-python -m venv .venv
-\.venv\Scripts\activate
-pip install -r requirements.txt
+cd worker-java
+mvn -q package
 ```
 
 ## Run (local)
@@ -57,8 +55,8 @@ Start each node in its own terminal:
 go run .\cmd\worker-go -config .\config\worker-go.json
 ```
 ```
-cd worker-python
-python app.py
+cd worker-java
+mvn -q exec:java -Dexec.args="--config ..\config\worker-java.json"
 ```
 ```
 dotnet run --project .\worker-cs\Worker.csproj -- --config .\config\worker-cs.json

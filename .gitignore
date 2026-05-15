@@ -1,7 +1,6 @@
 data/
 *.db
-worker-python/__pycache__/
-worker-python/.venv/
 *.pyc
 worker-cs/bin/
 worker-cs/obj/
+worker-java/target/
