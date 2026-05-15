@@ -1,0 +1,14 @@
+{
+    "address": ":8004",
+    "workers": [
+        {
+            "name": "worker-go",
+            "baseUrl": "http://localhost:8001"
+        },
+        {
+            "name": "worker-cs",
+            "baseUrl": "http://localhost:8003"
+        }
+    ],
+    "requestTimeoutMs": 5000
+}

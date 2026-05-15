@@ -1,0 +1,12 @@
+{
+    "_comment": "Set MySQL credentials for this worker.",
+    "name": "worker-cs",
+    "address": ":8003",
+    "mysql": {
+        "host": "127.0.0.1",
+        "port": 3306,
+        "user": "root",
+        "password": "CHANGE_ME",
+        "database": "ddb_worker_cs"
+    }
+}

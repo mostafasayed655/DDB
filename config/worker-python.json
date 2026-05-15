@@ -1,0 +1,13 @@
+{
+    "_comment": "Set MySQL credentials for this worker.",
+    "name": "worker-python",
+    "address": 8003,
+    "mysql": {
+        "host": "127.0.0.1",
+        "port": 3306,
+        "user": "root",
+        "password": "CHANGE_ME",
+        "database": "ddb_worker_python",
+        "params": "parseTime=true&multiStatements=true"
+    }
+}

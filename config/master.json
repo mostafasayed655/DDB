@@ -1,0 +1,18 @@
+{
+    "address": ":8000",
+    "workers": [
+        {
+            "name": "worker-go",
+            "baseUrl": "http://10.227.135.128:8001"
+        },
+        {
+            "name": "worker-cs",
+            "baseUrl": "http://10.227.135.185:8003"
+        }
+    ],
+    "aggregatorUrl": "http://10.227.135.32:8004",
+    "requestTimeoutMs": 5000,
+    "specialWorkers": [
+        "worker-cs"
+    ]
+}
